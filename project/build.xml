@@ -1,0 +1,27 @@
+<xml>
+	
+	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+	
+	<set name="tool" value="exe" unless="iphone"/>
+	<set name="tool" value="static" if="iphone"/>
+	
+	<set name="LIBEXTRA" value=".iphoneos" if="iphoneos"/>
+	<set name="LIBEXTRA" value=".iphonesim" if="iphonesim"/>
+	<set name="LIBPREFIX" value="lib" if="iphoneos"/>
+	<set name="LIBPREFIX" value="lib" if="iphonesim"/>
+	
+	<files id="common_files" dir="./src/">
+		<compilerflag value = "-Iinclude"/>
+		<file name="hxlode.cpp"/>
+	</files>
+	
+	<target id="hxlode" output="${LIBPREFIX}hxlode${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+		<ext value=".ndll" unless="mobile"/>
+		<files id="common_files" />
+		<outdir name="../ndll/${BINDIR}"/>
+	</target>
+	
+	<target id="default">
+		<target id="hxlode" />
+	</target>
+</xml>
