@@ -42,7 +42,11 @@ extern "C" {
 		//buffer_append_sub(data, reinterpret_cast<const char*>(image.data()), image.size());
 		//value imgData = buffer_val(data);
 		
-		value imgData = copy_string(reinterpret_cast<const char*>(image.data()), image.size());
+		buffer data = alloc_buffer(NULL);
+		buffer_append_sub(data, reinterpret_cast<const char*>(image.data()), image.size());
+		value imgData = buffer_val(data);
+		
+		//value imgData = copy_string(reinterpret_cast<const char*>(image.data()), image.size());
 		
 		//cout << "Allocating object..." << endl;
 		
@@ -57,13 +61,61 @@ extern "C" {
 		return img;
 	}
 	
-	value picoDecodePNG(value file) {
+	value picoDecodeStringPNG(value file, value length) {
 		if (!val_is_string(file)) return val_null;
-		const char* bytes = val_string(file);
-		vector<unsigned char> buf(bytes, bytes+val_strlen(file));
+		if (!val_is_int(length)) return val_null;
+		
+		unsigned char* bytes = (unsigned char*) val_string(file);
+		vector<unsigned char> buf(bytes, bytes+val_int(length));
+		return picoDecode(buf);
+		
+		//const char* bytes = val_string(file);
+		//
+		//vector<unsigned char> buf(bytes, bytes+val_int(length));
+		//
+		//return picoDecode(buf);
+		
+		//vector<unsigned char> buf;
+		//buf.reserve(len);
+		//cout << val_int(length) << " bytes ";
+		//buf.push_back(bytes[0]);
+		//cout << bytes[0] << endl;
+		//cout << bytes[1] << endl;
+		//cout << bytes[2] << endl;
+		//for (int i = 0; i < len; i++) {
+			//cout << i << " ";
+			//buf.push_back(bytes[i]);
+		//}
+		//return picoDecode(buf);
+		//vector<unsigned char> buf(bytes, bytes+val_strlen(file));
+		//std::string input(bytes);
+		//vector<unsigned char> buf(val_strlen(file));
+		//std::transform(input.begin(), input.end(), buf.begin(),
+		//[](char c)
+		//{
+		  //return static_cast<unsigned char>(c);
+		//});
+		
+		//cout << bytes << endl;
+		
+		//buf.reserve(val_strlen(file));
+		//buf.assign(bytes, bytes+val_strlen(file));
+		//return picoDecodeFromString(buffer_to_string(file));
+		//cout << bytes << " " << val_strlen(file) << endl;
+		return val_null;
+	}
+	DEFINE_PRIM(picoDecodeStringPNG, 2);
+	
+	value picoDecodeArrayPNG(value file, value length) {
+		if (!val_is_array(file)) return val_null;
+		if (!val_is_int(length)) return val_null;
+		
+		char* bytes = buffer_data(val_to_buffer(file));
+		vector<unsigned char> buf(bytes, bytes+val_int(length));
 		return picoDecode(buf);
 	}
-	DEFINE_PRIM(picoDecodePNG, 1);
+	DEFINE_PRIM(picoDecodeArrayPNG, 2);
+	
 	
 	value picoLoadFile(value path) {
 		if (!val_is_string(path)) return val_null;

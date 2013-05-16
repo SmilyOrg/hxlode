@@ -4,8 +4,8 @@
   "license": "GPL",
   "tags": [ "image", "png", "decoder", "cpp", "neko" ],
   "description": "PNG image decoder for neko/cpp using LodePNG / PicoPNG",
-  "version": "1.0.0",
-  "releasenote": "First version",
+  "version": "1.0.1",
+  "releasenote": "It should actually work with all the neko/cpp BytesData/file combinations now",
   "contributors": [ "Smily" ],
   "dependencies": {}
 }

@@ -5,8 +5,10 @@
 haxelib run hxcpp build.xml
 
 ::@cd ..
-haxe -cp ../hxlode -lib hxlode -main hxlode.PicoPNG -cpp ../bin
-..\bin\PicoPNG.exe
+::haxe -lib hxlode -main hxlode.PicoPNG -cpp bin
+::bin\PicoPNG.exe
+::cd project
+
 
 :: cp ndll/Windows/hxlode.ndll bin/hxlode.ndll
 
