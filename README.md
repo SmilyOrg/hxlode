@@ -1,7 +1,9 @@
 hxlode
 ======
 
-PNG image decoder haxelib for neko/cpp using LodePNG / PicoPNG
+PNG image decoder haxelib for neko/cpp using LodePNG / PicoPNG.
+
+Official binaries provided for Windows. Binaries for Mac / Mac64 by [Alex Koz](https://github.com/fzzrr).
 
 
 Usage
